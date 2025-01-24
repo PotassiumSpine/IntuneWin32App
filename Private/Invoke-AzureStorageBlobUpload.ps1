@@ -52,16 +52,16 @@ function Invoke-AzureStorageBlobUpload {
         Write-Verbose -Message "SAS Uri renewal timer has elapsed for: $($SASRenewalTimer.Elapsed.Minutes) minute $($SASRenewalTimer.Elapsed.Seconds) seconds"
 
         # Refresh access token if about to expire
-        $UTCDateTime = (Get-Date).ToUniversalTime()
+        # $UTCDateTime = (Get-Date).ToUniversalTime()
 
         # Determine the token expiration count as minutes
-        $TokenExpireMinutes = [System.Math]::Round(([datetime]$Global:AccessToken.ExpiresOn.ToUniversalTime().UtcDateTime - $UTCDateTime).TotalMinutes)
+        # $TokenExpireMinutes = [System.Math]::Round(([datetime]$Global:AccessToken.ExpiresOn.ToUniversalTime().UtcDateTime - $UTCDateTime).TotalMinutes)
 
         # Determine if refresh of access token is required when expiration count is less than or equal to minimum age
-        if ($TokenExpireMinutes -le 10) {
-            Write-Verbose -Message "Existing token found but is soon about to expire, refreshing token"
-            Connect-MSIntuneGraph -TenantID $Global:AccessTokenTenantID -Refresh
-        }
+        # if ($TokenExpireMinutes -le 10) {
+        #    Write-Verbose -Message "Existing token found but is soon about to expire, refreshing token"
+        #    Connect-MSIntuneGraph -TenantID $Global:AccessTokenTenantID -Refresh
+        #}
 
         # Convert and calculate required chunk elements for content upload
         $ChunkID = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($Chunk.ToString("0000")))

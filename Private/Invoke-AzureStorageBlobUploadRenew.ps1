@@ -24,6 +24,6 @@ function Invoke-AzureStorageBlobUploadRenew {
         [ValidateNotNullOrEmpty()]
         [string]$Resource
     )
-    $RenewSASURIRequest = Invoke-IntuneGraphRequest -APIVersion "Beta" -Resource "$($Resource)/renewUpload" -Method "POST" -Body "{}"
+    $RenewSASURIRequest = Invoke-MgGraphRequest -Uri "https://graph.microsoft.com/beta/deviceAppManagement/$($Resource)/renewUpload" -Method "POST" -Body "{}"
     $FilesProcessingRequest = Wait-IntuneWin32AppFileProcessing -Stage "AzureStorageUriRenewal" -Resource $Resource
 }
