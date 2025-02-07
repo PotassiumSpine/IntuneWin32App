@@ -274,15 +274,6 @@ function Add-IntuneWin32App {
         [switch]$UnattendedUninstall
     )
     Begin {
-        # Ensure required authentication header variable exists
-        <# if ($Global:AuthenticationHeader -eq $null) {
-            Write-Warning -Message "Authentication token was not found, use Connect-MSIntuneGraph before using this function"; break
-        }
-        else {
-            if ((Test-AccessToken) -eq $false) {
-                Write-Warning -Message "Existing token found but has expired, use Connect-MSIntuneGraph to request a new authentication token"; break
-            }
-        }#>
 
         # Set script variable for error action preference
         $ErrorActionPreference = "Stop"
@@ -660,6 +651,9 @@ function Add-IntuneWin32App {
         }
         catch [System.Exception] {
             Write-Warning -Message "An error occurred while creating the Win32 application. Error message: $($_.Exception.Message)"
+            $_.Exception | fl *
+            $_.Exception.CommandInvocation
+
         }
     }
 }

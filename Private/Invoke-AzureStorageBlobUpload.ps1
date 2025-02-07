@@ -38,7 +38,7 @@ function Invoke-AzureStorageBlobUpload {
     $ChunkSizeInBytes = 1024l * 1024l * 6l;
 
     # Start the timer for SAS URI renewal
-    $SASRenewalTimer = [System.Diagnostics.Stopwatch]::StartNew()
+    # $SASRenewalTimer = [System.Diagnostics.Stopwatch]::StartNew()
 
     # Find the file size and open the file
     $FileSize = (Get-Item -Path $FilePath).Length
@@ -49,19 +49,19 @@ function Invoke-AzureStorageBlobUpload {
     # Upload each chunk and dheck whether a SAS URI renewal is required after each chunk is uploaded and renew if needed
     $ChunkIDs = @()
     for ($Chunk = 0; $Chunk -lt $ChunkCount; $Chunk++) {
-        Write-Verbose -Message "SAS Uri renewal timer has elapsed for: $($SASRenewalTimer.Elapsed.Minutes) minute $($SASRenewalTimer.Elapsed.Seconds) seconds"
+        # Write-Verbose -Message "SAS Uri renewal timer has elapsed for: $($SASRenewalTimer.Elapsed.Minutes) minute $($SASRenewalTimer.Elapsed.Seconds) seconds"
 
         # Refresh access token if about to expire
-        $UTCDateTime = (Get-Date).ToUniversalTime()
+        # $UTCDateTime = (Get-Date).ToUniversalTime()
 
         # Determine the token expiration count as minutes
-        $TokenExpireMinutes = [System.Math]::Round(([datetime]$Global:AccessToken.ExpiresOn.ToUniversalTime().UtcDateTime - $UTCDateTime).TotalMinutes)
+        # $TokenExpireMinutes = [System.Math]::Round(([datetime]$Global:AccessToken.ExpiresOn.ToUniversalTime().UtcDateTime - $UTCDateTime).TotalMinutes)
 
         # Determine if refresh of access token is required when expiration count is less than or equal to minimum age
-        if ($TokenExpireMinutes -le 10) {
-            Write-Verbose -Message "Existing token found but is soon about to expire, refreshing token"
-            Connect-MSIntuneGraph -TenantID $Global:AccessTokenTenantID -Refresh
-        }
+        # if ($TokenExpireMinutes -le 10) {
+        #    Write-Verbose -Message "Existing token found but is soon about to expire, refreshing token"
+        #    Connect-MSIntuneGraph -TenantID $Global:AccessTokenTenantID -Refresh
+        # }
 
         # Convert and calculate required chunk elements for content upload
         $ChunkID = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($Chunk.ToString("0000")))
