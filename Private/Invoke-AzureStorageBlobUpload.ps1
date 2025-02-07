@@ -85,7 +85,7 @@ function Invoke-AzureStorageBlobUpload {
     }
 
     # Stop timer
-    $SASRenewalTimer.Stop()
+    # $SASRenewalTimer.Stop()
 
     # Complete write status progress bar
     Write-Progress -Completed -Activity "Uploading File to Azure Storage blob"
