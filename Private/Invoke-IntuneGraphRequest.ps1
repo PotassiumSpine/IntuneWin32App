@@ -55,16 +55,16 @@ function Invoke-IntuneGraphRequest {
         # Call Graph API and get JSON response
         switch ($Method) {
             "GET" {
-                $GraphResponse = Invoke-RestMethod -Uri $GraphURI -Headers $Global:AuthenticationHeader -Method $Method -ErrorAction Stop -Verbose:$false
+                $GraphResponse = Invoke-MgGraphRequest -Uri $GraphURI -Method $Method -ErrorAction Stop -Verbose:$false
             }
             "POST" {
-                $GraphResponse = Invoke-RestMethod -Uri $GraphURI -Headers $Global:AuthenticationHeader -Method $Method -Body $Body -ContentType $ContentType -ErrorAction Stop -Verbose:$false
+                $GraphResponse = Invoke-MgGraphRequest -Uri $GraphURI -Method $Method -Body $Body -ContentType $ContentType -ErrorAction Stop -Verbose:$false
             }
             "PATCH" {
-                $GraphResponse = Invoke-RestMethod -Uri $GraphURI -Headers $Global:AuthenticationHeader -Method $Method -Body $Body -ContentType $ContentType -ErrorAction Stop -Verbose:$false
+                $GraphResponse = Invoke-MgGraphRequest -Uri $GraphURI -Method $Method -Body $Body -ContentType $ContentType -ErrorAction Stop -Verbose:$false
             }
             "DELETE" {
-                $GraphResponse = Invoke-RestMethod -Uri $GraphURI -Headers $Global:AuthenticationHeader -Method $Method -ErrorAction Stop -Verbose:$false
+                $GraphResponse = Invoke-MgGraphRequest -Uri $GraphURI -Method $Method -ErrorAction Stop -Verbose:$false
             }
         }
 
